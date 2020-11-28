@@ -1,4 +1,8 @@
 'use strict';
+
+// 1. Создайте массив, состоящий из 25 сгенерированных JS объектов, 
+// которые будут описывать фотографии, размещённые другими пользователями:
+
 var comments = [
 	'Всё отлично!',
 	'В целом всё неплохо. Но не всё.',
@@ -38,19 +42,117 @@ var generatePicture = function (index) {
 	return {
 		url: 'photos/' + index + '.jpg',
 		likes: getRandomNumber(15, 200),
-		comment: getRandomComments(comments, 2),
+		comments: getRandomComments(comments, 2),
 		description: descriptions[getRandomNumber(0, descriptions.length - 1)],
 	}
 }
 
 var generateData = function (amount) {
 	var pictures = [];
-  for (var i = 0; i < amount; i++) {
+  for (var i = 1; i <= amount; i++) {
 		pictures.push(generatePicture(i));
 	}
 	return pictures;
 }
 
 var pictures = generateData(25);
-console.log(pictures);
+
+/*
+2. На основе данных, созданных в предыдущем пункте и шаблона #picture создайте DOM-элементы, соответствующие
+фотографиям и заполните их данными из массива:
+
+o Адрес изображения url подставьте как src изображения.
+o Количество лайков likes подставьте как текстовое содержание элемента .picture__stat--likes.
+o Количество комментариев comments подставьте как текстовое содержание элемента .picture__stat--comments.
+*/
+var getPictureTemplate = function (data) {
+	var template = document.querySelector('#picture-template').content; // очень важно не забывать по content
+	var pictureTemplate = template.cloneNode(true).querySelector('.picture');
+
+	var image = pictureTemplate.querySelector('.picture img');
+	var likes = pictureTemplate.querySelector('.picture-likes');
+	var comments = pictureTemplate.querySelector('.picture-comments');
+	
+	image.src = data.url;
+	comments.textContent = data.comments.length;
+	likes.textContent = data.likes;
+
+	return pictureTemplate;
+}
+
+// 3. Отрисуйте сгенерированные DOM-элементы в блок .pictures. Для вставки элементов используйте DocumentFragment:
+var renderPictures = function (pictures) {
+	var gallery = document.querySelector('.pictures');
+	for (let i = 1; i < pictures.length; i++) {
+		var picture = getPictureTemplate(pictures[i]);
+		gallery.appendChild(picture);
+		console.log(picture);
+	}
+}
+renderPictures(pictures);
+
+/* 4. Покажите элемент .big-picture, удалив у него класс .hidden и заполните 
+его данными из первого элемента сгенерированного вами массива:
+*/ 
+
+var showBigPicture = function (picture) {
+	var bigPicture = document.querySelector('.big-picture');
+	bigPicture.classList.remove('hidden');
+
+	var bigPictureImage = bigPicture.querySelector('img');
+	var bigPictureTitle = bigPicture.querySelector('.social__caption');
+	var bigPictureLikes = bigPicture.querySelector('.likes-count');
+	var bigPictureComments = bigPicture.querySelector('.comments-count');
+	var bigPictureUserAvatar = bigPicture.querySelector('.social__picture');
+
+	bigPictureImage.src = picture.url;
+	bigPictureTitle.textContent = picture.description;
+	bigPictureLikes.textContent = picture.likes;
+	bigPictureComments.textContent = picture.comments.length;
+	
+	bigPictureUserAvatar.src = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
+	bigPictureUserAvatar.alt = "Аватар комментатора фотографии";
+	bigPictureUserAvatar.width = 35;
+	bigPictureUserAvatar.height = 35;
+
+	var socialComments = document.querySelector('.social__comments');
+
+	for (let i = 0; i < picture.comments.length; i++) {
+		// создать комментарий
+		var socialComment = document.createElement('li');
+		socialComment.classList.add('social__comment');
+		socialComment.classList.add('social__comment--text');
+
+		// создать картинку
+		var socialPicture = document.createElement('img');
+		socialPicture.classList.add('social__picture');
+		socialPicture.src = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
+		socialPicture.alt = "Аватар комментатора фотографии";
+		socialPicture.width = 35;
+		socialPicture.height = 35;
+
+		// создать текст
+		var socialText = document.createElement('p');
+		socialText.classList.add('social__text');
+		socialText.textContent = picture.comments[i];
+
+		// отрисовать комментарий текст и аватарку на странице
+		socialComments.appendChild(socialComment);
+		socialComment.appendChild(socialPicture);
+		socialComment.appendChild(socialText);
+	}
+}
+showBigPicture(pictures[3]);
+
+/* 5. Спрячьте блоки счётчика комментариев .social__comment-count и загрузки
+новых комментариев .social__loadmore, добавив им класс .visuallyhidden.
+*/
+var hideCommentsControl = function () {
+	var commentsCount = document.querySelector('.social__comment-count');
+	commentsCount.classList.add('visually-hidden');
+
+	var loadMoreCommentsButton = document.querySelector('.social__comment-loadmore');
+	loadMoreCommentsButton.classList.add('visually-hidden');
+};
+hideCommentsControl();
 

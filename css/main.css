@@ -95,7 +95,6 @@ body {
   width: 582px;
   height: 569px;
   position: relative;
-  z-index: 1;
 
   background: url("../img/logo-mask.png") no-repeat center;
 }
@@ -861,4 +860,260 @@ input[type=radio]:checked + .upload-effect-label .upload-effect-preview {
 
 .footer-social-item-vk {
   background-position: -84px 0;
+}
+
+/* bot picture */
+
+/* Просмотр фотки .big-picture */
+
+.big-picture__preview {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+
+  max-width: 600px;
+  min-height: 600px;
+
+  padding-bottom: 60px;
+
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.big-picture__img img {
+  display: block;
+}
+
+.social {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+
+  max-width: 600px;
+
+  color: #000000;
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-weight: 400;
+  text-transform: none;
+
+  background-color: #ffffff;
+}
+
+.social__header {
+  padding: 10px 15px;
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+
+  border-bottom: 1px solid #cccccc;
+}
+
+.social__picture {
+  display: block;
+  margin-right: 15px;
+}
+
+.social__caption {
+  margin: 0;
+  margin-right: 15px;
+}
+
+.social__likes {
+  margin-left: auto;
+  min-width: 125px;
+}
+
+.likes-count {
+  position: relative;
+  padding-left: 30px;
+
+  color: #f48181;
+
+  cursor: pointer;
+}
+
+.likes-count:hover {
+  color: #e90000;
+}
+
+.likes-count::before {
+  content: "";
+  position: absolute;
+
+  top: 3px;
+  left: 5px;
+
+  width: 20px;
+  height: 18px;
+
+  background-image: url("../img/sprite.svg");
+  background-size: 100%;
+
+  background-position: 0 -150px;
+  opacity: 0.5;
+}
+
+.likes-count:hover::before,
+.likes-count:focus::before {
+  opacity: 1;
+}
+
+.likes-count:active::before {
+  opacity: 1;
+  background-position: 0 -120px;
+}
+
+.social__comments {
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+
+  list-style: none;
+
+  margin: 0;
+  padding: 0;
+}
+
+.social__comment {
+  padding-left: 65px;
+  padding-bottom: 20px;
+}
+
+.social__comment-count,
+.social__comment-loadmore {
+  padding-left: 65px;
+  padding-bottom: 20px;
+}
+
+.social__comment-count {
+  padding-top: 20px;
+}
+
+.social__comment-loadmore {
+  position: relative;
+  color: #3b77c0;
+}
+
+.social__comment-loadmore::after {
+  content: "";
+  position: absolute;
+  left: 180px;
+  right: 0;
+
+  width: 23px;
+  height: 23px;
+
+  background-image: url("../img/spinner-blue.svg");
+}
+
+.social__comment--text {
+  padding-left: 15px;
+  padding-bottom: 20px;
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.social__footer {
+  border-top: 1px solid #cccccc;
+}
+
+.big-picture__cancel {
+  position: absolute;
+  top: 0;
+  left: 100%;
+
+  margin-left: 10px;
+}
+
+.social__footer {
+  position: relative;
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  padding: 15px;
+}
+
+.social__footer-commentor {
+  display: block;
+
+  margin-right: 15px;
+}
+
+.social__footer-text {
+  width: 100%;
+
+  border: none;
+}
+
+.social__footer-btn {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+
+  width: 34px;
+  height: 34px;
+
+  font-size: 0;
+
+  background-image: url("../img/sprite.svg");
+  background-size: 100%;
+  background-position: 0 0;
+
+  opacity: 0.6;
+
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+
+  border: none;
+}
+
+.social__footer-btn:hover,
+.social__footer-btn:focus {
+  opacity: 1;
+}
+
+.social__footer-btn:active {
+  background-position: 0 -48px;
+  opacity: 1;
+}
+
+.visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+
+  -webkit-clip-path: inset(100%);
+          clip-path: inset(100%);
+
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
