@@ -10,10 +10,13 @@ var uploadForm = document.querySelector('.upload-form');
 var uploadInput = document.querySelector('.upload-input');
 var imageEditor = document.querySelector('.upload-overlay');
 var imageEditorcloseButton = imageEditor.querySelector('.upload-form-cancel');
-var uploadScalePin = imageEditor.querySelector('.upload-effect-level-pin');
+var scalePin = imageEditor.querySelector('.upload-effect-level-pin');
+var scaleLine = imageEditor.querySelector('.upload-effect-level-val');
 var submitUploadForm = imageEditor.querySelector('.upload-form-submit');
 var uploadFormHashtags = document.querySelector('.upload-form-hashtags');
 var isTegsInputNotFocused = document.querySelector( ':focus' ) !== uploadFormHashtags;
+
+var SCALE_LINE__WIDTH = 450;
 
 var onESCPress = function (evt) {
 	if (evt.keyCode === 27 && isTegsInputNotFocused) {
@@ -48,8 +51,44 @@ imageEditorcloseButton.addEventListener('click', function () {
 уровень эффекта нужно применить.
 */
 
-uploadScalePin.addEventListener('mouseup', function () {
+scalePin.addEventListener('mousedown', function (evt) {
+	evt.preventDefault();
 
+	var startCoords = {
+		x: evt.clientX,
+		y: evt.clientY,
+	}
+
+	var onMouseMove = function (moveEvt) {
+		moveEvt.preventDefault();
+
+		var shift = {
+			x: moveEvt.clientX - startCoords.x,
+		}
+
+		startCoords = {
+			x: moveEvt.clientX,
+		}
+
+		var pinShift = scalePin.offsetLeft + shift.x;
+		var isMovementInRange = pinShift >= 0 && pinShift <= SCALE_LINE__WIDTH;
+		
+		if (isMovementInRange) {
+			scalePin.style.left = pinShift + 'px';
+			scaleLine.style.width = pinShift + 'px';
+		}
+		
+	}
+
+	var onMouseUp = function (upEvt) {
+		upEvt.preventDefault();
+
+		document.removeEventListener('mousemove', onMouseMove);
+		document.removeEventListener('mouseup', onMouseUp);
+	}
+
+	document.addEventListener('mousemove', onMouseMove);
+	document.addEventListener('mouseup', onMouseUp);
 });
 
 /*
