@@ -86,7 +86,10 @@ var renderPictures = function (pictures) {
 	for (let i = 1; i < pictures.length; i++) {
 		var picture = getPictureTemplate(pictures[i]);
 		gallery.appendChild(picture);
-		console.log(picture);
+		picture.addEventListener('click', function (evt) {
+			evt.preventDefault();
+			showBigPicture(pictures[i]);
+		});
 	}
 }
 renderPictures(pictures);
@@ -94,30 +97,34 @@ renderPictures(pictures);
 /* 4. Покажите элемент .big-picture, удалив у него класс .hidden и заполните 
 его данными из первого элемента сгенерированного вами массива:
 */ 
+var bigPicture = document.querySelector('.big-picture');
 
-var showBigPicture = function (picture) {
-	var bigPicture = document.querySelector('.big-picture');
-	bigPicture.classList.remove('hidden');
+var closeBigPictureOnEscPressHandler = function (evt) {
+	if (evt.keyCode === 27) {
+		closeElement(bigPicture);
+	}
+}
 
-	var bigPictureImage = bigPicture.querySelector('img');
-	var bigPictureTitle = bigPicture.querySelector('.social__caption');
-	var bigPictureLikes = bigPicture.querySelector('.likes-count');
-	var bigPictureComments = bigPicture.querySelector('.comments-count');
-	var bigPictureUserAvatar = bigPicture.querySelector('.social__picture');
+var closeElement = function (element) {
+	element.classList.add('hidden');
+	document.removeEventListener('keydown', closeBigPictureOnEscPressHandler);
+}
 
-	bigPictureImage.src = picture.url;
-	bigPictureTitle.textContent = picture.description;
-	bigPictureLikes.textContent = picture.likes;
-	bigPictureComments.textContent = picture.comments.length;
+var removePreviousComments = function (commentsBlock) {
+	var socialComments = commentsBlock.querySelectorAll('.social__comment');
+	if (socialComments) {
+		for (let i = 0; i < socialComments.length; i++) {
+			socialComments[i].remove();
+		}
+	}
+}
+
+var renderComments = function (picture) {
+	var socialCommentsBlock = document.querySelector('.social__comments');
+	removePreviousComments(socialCommentsBlock);
 	
-	bigPictureUserAvatar.src = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
-	bigPictureUserAvatar.alt = "Аватар комментатора фотографии";
-	bigPictureUserAvatar.width = 35;
-	bigPictureUserAvatar.height = 35;
 
-	var socialComments = document.querySelector('.social__comments');
-
-	for (let i = 0; i < picture.comments.length; i++) {
+	for (var i = 0; i < picture.comments.length; i++) {
 		// создать комментарий
 		var socialComment = document.createElement('li');
 		socialComment.classList.add('social__comment');
@@ -137,12 +144,40 @@ var showBigPicture = function (picture) {
 		socialText.textContent = picture.comments[i];
 
 		// отрисовать комментарий текст и аватарку на странице
-		socialComments.appendChild(socialComment);
+		socialCommentsBlock.appendChild(socialComment);
 		socialComment.appendChild(socialPicture);
 		socialComment.appendChild(socialText);
 	}
 }
-showBigPicture(pictures[3]);
+
+var showBigPicture = function (picture) {
+	bigPicture.classList.remove('hidden');
+
+	var bigPictureImage = bigPicture.querySelector('img');
+	var bigPictureTitle = bigPicture.querySelector('.social__caption');
+	var bigPictureLikes = bigPicture.querySelector('.likes-count');
+	var bigPictureComments = bigPicture.querySelector('.comments-count');
+	var bigPictureUserAvatar = bigPicture.querySelector('.social__picture');
+	var bigPictureCloseButton = bigPicture.querySelector('.gallery-overlay-close');
+
+	bigPictureImage.src = picture.url;
+	bigPictureTitle.textContent = picture.description;
+	bigPictureLikes.textContent = picture.likes;
+	bigPictureComments.textContent = picture.comments.length;
+	
+	bigPictureUserAvatar.src = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
+	bigPictureUserAvatar.alt = "Аватар комментатора фотографии";
+	bigPictureUserAvatar.width = 35;
+	bigPictureUserAvatar.height = 35;
+
+	bigPictureCloseButton.addEventListener('click', function () {
+		closeElement(bigPicture);
+	});
+
+	document.addEventListener('keydown', closeBigPictureOnEscPressHandler);
+	renderComments(picture);
+	
+}
 
 /* 5. Спрячьте блоки счётчика комментариев .social__comment-count и загрузки
 новых комментариев .social__loadmore, добавив им класс .visuallyhidden.
