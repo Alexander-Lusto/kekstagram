@@ -9,7 +9,9 @@
 var uploadForm = document.querySelector('.upload-form');
 var uploadInput = document.querySelector('.upload-input');
 var imageEditor = document.querySelector('.upload-overlay');
+var imagePreview = imageEditor.querySelector('.effect-image-preview');
 var imageEditorcloseButton = imageEditor.querySelector('.upload-form-cancel');
+var scale = imageEditor.querySelector('.upload-effect-level');
 var scalePin = imageEditor.querySelector('.upload-effect-level-pin');
 var scaleLine = imageEditor.querySelector('.upload-effect-level-val');
 var submitUploadForm = imageEditor.querySelector('.upload-form-submit');
@@ -51,6 +53,16 @@ imageEditorcloseButton.addEventListener('click', function () {
 уровень эффекта нужно применить.
 */
 
+
+
+var hideElement = function (element) {
+	element.classList.add('visually-hidden');
+}
+
+var showElement = function (element) {
+	element.classList.remove('visually-hidden');
+}
+
 scalePin.addEventListener('mousedown', function (evt) {
 	evt.preventDefault();
 
@@ -76,6 +88,7 @@ scalePin.addEventListener('mousedown', function (evt) {
 		if (isMovementInRange) {
 			scalePin.style.left = pinShift + 'px';
 			scaleLine.style.width = pinShift + 'px';
+			changeFilter(pinShift);
 		}
 		
 	}
@@ -90,6 +103,47 @@ scalePin.addEventListener('mousedown', function (evt) {
 	document.addEventListener('mousemove', onMouseMove);
 	document.addEventListener('mouseup', onMouseUp);
 });
+
+var changeFilter = function (number) {
+	var percent = (number / SCALE_LINE__WIDTH).toFixed(2);
+
+	for (var i = 0; i < filters.length; i++) {
+		var isFilterChecked = filters[i].checked;
+
+		if (isFilterChecked) {
+			switch(filters[i].value) {
+				case filtersNames.ORIGINAL:
+					hideElement(scale);
+					break;
+			
+				case filtersNames.CHROME:
+					showElement(scale);
+					imagePreview.style.filter = 'grayscale(' + percent + ')';
+					break;
+				
+				case filtersNames.SEPIA:
+					showElement(scale);
+					imagePreview.style.filter = 'sepia(' + percent + ')';
+					break;
+				
+				case filtersNames.MARVIN:
+					showElement(scale);
+					imagePreview.style.filter = 'invert(' + (percent * 100) + '%)';
+					break;
+				
+				case filtersNames.PHOBOS:
+					showElement(scale);
+					imagePreview.style.filter = 'blur(' + (percent * 3) + 'px)';
+					break;
+				
+				case filtersNames.HEAT:
+					showElement(scale);
+					imagePreview.style.filter = 'brightness(' + (percent * 3) + ')';
+					break;
+			}
+		}
+	}
+}
 
 /*
 Хэш-теги:
@@ -151,4 +205,53 @@ var isTegsDuplicated = function (array) {
 	}
 
 	return false;
+}
+
+// Смена изображения при клике на фильтр
+
+var filtersPannel = document.querySelector('.upload-effect-controls');
+var filters = filtersPannel.querySelectorAll('input[name="effect"]');
+var filtersNames = {
+	ORIGINAL: 'none',
+	CHROME: 'chrome',
+	SEPIA: 'sepia',
+	MARVIN: 'marvin',
+	PHOBOS: 'phobos',
+	HEAT: 'heat',
+}	
+
+for (var i = 0; i < filters.length; i++) {
+	filters[i].addEventListener('click', function () {
+		switch(this.value) {
+			case filtersNames.ORIGINAL:
+				imagePreview.style.filter = '';
+				hideElement(scale);
+				break;
+		
+			case filtersNames.CHROME:
+				showElement(scale);
+				imagePreview.style.filter = 'grayscale(1)';
+				break;
+			
+			case filtersNames.SEPIA:
+				showElement(scale);
+				imagePreview.style.filter = 'sepia(1)';
+				break;
+			
+			case filtersNames.MARVIN:
+				showElement(scale);
+				imagePreview.style.filter = 'invert(100%)';
+				break;
+			
+			case filtersNames.PHOBOS:
+				showElement(scale);
+				imagePreview.style.filter = 'blur(3px)';
+				break;
+			
+			case filtersNames.HEAT:
+				showElement(scale);
+				imagePreview.style.filter = 'brightness(3)';
+				break;
+		}
+	});
 }
