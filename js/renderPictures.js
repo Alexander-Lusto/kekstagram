@@ -1,5 +1,11 @@
 'use strict';
 (function () {
+
+  var onLoad = function (data) {
+    renderPictures(data);
+    console.log(data);
+  }
+
 	var getPictureTemplate = function (data) {
 		var template = document.querySelector('#picture-template').content; // очень важно не забывать по content
 		var pictureTemplate = template.cloneNode(true).querySelector('.picture');
@@ -17,7 +23,7 @@
 
 	var renderPictures = function (pictures) {
 		var gallery = document.querySelector('.pictures');
-		for (let i = 1; i < pictures.length; i++) {
+		for (let i = 0; i < pictures.length; i++) {
 			var picture = getPictureTemplate(pictures[i]);
 			gallery.appendChild(picture);
 			picture.addEventListener('click', function (evt) {
@@ -25,6 +31,6 @@
 				window.showBigPicture(pictures[i]);
 			});
 		}
-	}
-	renderPictures(window.data);
+  }
+  window.backend.load(onLoad, window.utils.onError);
 })();

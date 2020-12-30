@@ -30,13 +30,13 @@
 
 			var pinShift = scalePin.offsetLeft + shift.x;
 			var isMovementInRange = pinShift >= 0 && pinShift <= SCALE_LINE__WIDTH;
-			
+
 			if (isMovementInRange) {
 				scalePin.style.left = pinShift + 'px';
 				scaleLine.style.width = pinShift + 'px';
 				changeFilter(pinShift);
 			}
-			
+
 		}
 
 		var onMouseUp = function (upEvt) {
@@ -55,34 +55,40 @@
 		if (isFilterChecked) {
 			switch(filter.value) {
 				case filtersNames.ORIGINAL:
+          imagePreview.style.filter = 'none';
 					window.utils.hideElement(scale);
 					break;
-			
+
 				case filtersNames.CHROME:
-					window.utils.showElement(scale);
-					imagePreview.style.filter = 'grayscale(' + percent + ')';
+          window.utils.showElement(scale);
+          imagePreview.style.filter = 'grayscale(' + percent + ')';
 					break;
-				
+
 				case filtersNames.SEPIA:
 					window.utils.showElement(scale);
-					imagePreview.style.filter = 'sepia(' + percent + ')';
+          imagePreview.style.filter = 'sepia(' + percent + ')';
 					break;
-				
+
 				case filtersNames.MARVIN:
 					window.utils.showElement(scale);
-					imagePreview.style.filter = 'invert(' + (percent * 100) + '%)';
+          imagePreview.style.filter = 'invert(' + (percent * 100) + '%)';
 					break;
-				
+
 				case filtersNames.PHOBOS:
 					window.utils.showElement(scale);
-					imagePreview.style.filter = 'blur(' + (percent * 3) + 'px)';
+          imagePreview.style.filter = 'blur(' + (percent * 3) + 'px)';
 					break;
-				
+
 				case filtersNames.HEAT:
 					window.utils.showElement(scale);
-					imagePreview.style.filter = 'brightness(' + (percent * 3) + ')';
+          imagePreview.style.filter = 'brightness(' + (percent * 3) + ')';
 					break;
-			}
+      }
+
+      if (percent === 1) {
+        scalePin.style.left = SCALE_LINE__WIDTH + 'px';
+				scaleLine.style.width = SCALE_LINE__WIDTH + 'px';
+      }
 		}
 	}
 
@@ -104,7 +110,7 @@
 		MARVIN: 'marvin',
 		PHOBOS: 'phobos',
 		HEAT: 'heat',
-	}	
+	}
 
 	for (var i = 0; i < filters.length; i++) {
 		filters[i].addEventListener('click', function () {

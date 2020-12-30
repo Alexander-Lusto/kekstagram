@@ -8,9 +8,13 @@
 		hideElement : function (element) {
 			element.classList.add('visually-hidden');
 		},
-	
+
 		showElement : function (element) {
 			element.classList.remove('visually-hidden');
-		}
+    },
+
+    onError : function (error) {
+      console.error(error);
+    }
 	}
 })();

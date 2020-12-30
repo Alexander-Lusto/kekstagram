@@ -32,21 +32,21 @@
 	}
 
 	var generatePicture = function (index) {
-			return {
-					url: 'photos/' + index + '.jpg',
-					likes: window.utils.getRandomNumber(15, 200),
-					comments: getRandomComments(comments, 2),
-					description: descriptions[window.utils.getRandomNumber(0, descriptions.length - 1)],
-			}
+		return {
+      url: 'photos/' + index + '.jpg',
+      likes: window.utils.getRandomNumber(15, 200),
+      comments: getRandomComments(comments, 2),
+      description: descriptions[window.utils.getRandomNumber(0, descriptions.length - 1)],
+    }
 	}
 
 	var generateData = function (amount) {
-			var pictures = [];
-	for (var i = 1; i <= amount; i++) {
-					pictures.push(generatePicture(i));
-			}
-			return pictures;
+		var pictures = [];
+	  for (var i = 1; i <= amount; i++) {
+			pictures.push(generatePicture(i));
+		}
+		return pictures;
 	}
 
-	window.data = generateData(25);
+  window.data = generateData(25);
 })();
