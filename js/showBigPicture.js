@@ -60,7 +60,7 @@
 		var loadMoreCommentsButton = document.querySelector('.social__comment-loadmore');
 		loadMoreCommentsButton.classList.add('visually-hidden');
 	};
-	hideCommentsControl();
+	// hideCommentsControl();
 
 	window.showBigPicture = function (picture) {
 		bigPicture.classList.remove('hidden');
