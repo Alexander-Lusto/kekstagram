@@ -1,11 +1,11 @@
 'use strict';
 (function () {
-  var form = document.querySelector('.upload-form');
-	var uploadInput = document.querySelector('.upload-input');
-	var imageEditor = document.querySelector('.upload-overlay');
-	var imageEditorcloseButton = imageEditor.querySelector('.upload-form-cancel');
-  var uploadFormHashtags = document.querySelector('.upload-form-hashtags');
-  var uploadFormDescription = document.querySelector('.upload-form-description');
+  var form = document.querySelector('.img-upload__form');
+	var uploadInput = document.querySelector('.img-upload__input');
+	var imageEditor = document.querySelector('.img-upload__overlay');
+	var imageEditorcloseButton = imageEditor.querySelector('.img-upload__cancel');
+  var uploadFormHashtags = document.querySelector('.text__hashtags');
+  var uploadFormDescription = document.querySelector('.text__description');
 
   var onLoad = function (response) {
     console.log(response)

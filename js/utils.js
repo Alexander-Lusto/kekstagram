@@ -17,11 +17,11 @@
     },
 
 		hideElement : function (element) {
-			element.classList.add('visually-hidden');
+			element.classList.add('hidden');
 		},
 
 		showElement : function (element) {
-			element.classList.remove('visually-hidden');
+			element.classList.remove('hidden');
     },
 
     onError : function (error) {

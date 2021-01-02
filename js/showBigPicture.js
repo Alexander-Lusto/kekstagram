@@ -70,7 +70,7 @@
 		var bigPictureLikes = bigPicture.querySelector('.likes-count');
 		var bigPictureComments = bigPicture.querySelector('.comments-count');
 		var bigPictureUserAvatar = bigPicture.querySelector('.social__picture');
-		var bigPictureCloseButton = bigPicture.querySelector('.gallery-overlay-close');
+		var bigPictureCloseButton = bigPicture.querySelector('.big-picture__cancel');
 
 		bigPictureImage.src = picture.url;
 		bigPictureTitle.textContent = picture.description;

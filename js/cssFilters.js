@@ -1,12 +1,14 @@
 'use strict';
 (function () {
-	var SCALE_LINE__WIDTH = 450;
+  var SCALE_LINE__WIDTH = 450;
+  var IMAGE_PREVIEW_CLASS_NAME = 'effect-image-preview';
 
-	var imageEditor = document.querySelector('.upload-overlay');
-	var imagePreview = imageEditor.querySelector('.effect-image-preview');
-	var scale = imageEditor.querySelector('.upload-effect-level');
-	var scalePin = imageEditor.querySelector('.upload-effect-level-pin');
-  var scaleLine = imageEditor.querySelector('.upload-effect-level-val');
+	var imageEditor = document.querySelector('.img-upload__overlay');
+	var imagePreview = imageEditor.querySelector('.img-upload__preview');
+	var scale = imageEditor.querySelector('.scale');
+	var scalePin = scale.querySelector('.scale__pin');
+  var scaleLine = scale.querySelector('.scale__level');
+  var scaleValue = scale.querySelector('.scale__value');
 
   var valueToClassName = { // словарь
     'none' : 'effects__preview--none',
@@ -17,7 +19,7 @@
     'heat' : 'effects__preview--heat',
   }
 
-  var IMAGE_PREVIEW_CLASS_NAME = 'effect-image-preview';
+
 
   var addClassNameToElement = function (element, value, defaultClass) {
     element.className = '';
@@ -50,7 +52,8 @@
 
 			if (isMovementInRange) {
 				scalePin.style.left = pinShift + 'px';
-				scaleLine.style.width = pinShift / SCALE_LINE__WIDTH * 100 + '%';
+        scaleLine.style.width = pinShift / SCALE_LINE__WIDTH * 100 + '%';
+        scaleValue.value = Math.round(pinShift / SCALE_LINE__WIDTH * 100);
 				changeFilter(pinShift);
 			}
 
@@ -124,7 +127,7 @@
 	}
 
 	// Смена изображения при клике на фильтр
-	var filtersPannel = document.querySelector('.upload-effect-controls');
+	var filtersPannel = document.querySelector('.img-upload__effects');
 	var filters = filtersPannel.querySelectorAll('input[name="effect"]');
 	var FilterName = { // перечисление
 		ORIGINAL: 'none',

@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var galleryFilters = document.querySelector('.filters');
+  var galleryFilters = document.querySelector('.img-filters');
 
   var onLoad = function (data) {
     window.data = data;
@@ -8,12 +8,12 @@
   }
 
 	var getPictureTemplate = function (data) {
-		var template = document.querySelector('#picture-template').content; // очень важно не забывать по content
-		var pictureTemplate = template.cloneNode(true).querySelector('.picture');
+		var template = document.querySelector('#picture').content; // очень важно не забывать по content
+		var pictureTemplate = template.cloneNode(true).querySelector('.picture__link');
 
-		var image = pictureTemplate.querySelector('.picture img');
-		var likes = pictureTemplate.querySelector('.picture-likes');
-		var comments = pictureTemplate.querySelector('.picture-comments');
+		var image = pictureTemplate.querySelector('.picture__img');
+		var likes = pictureTemplate.querySelector('.picture__stat--likes');
+		var comments = pictureTemplate.querySelector('.picture__stat--comments');
 
 		image.src = data.url;
 		comments.textContent = data.comments.length;
@@ -23,7 +23,7 @@
   }
 
   var deletePreviousPhotos = function () {
-    var previousePhotos = document.querySelectorAll('.picture');
+    var previousePhotos = document.querySelectorAll('.picture__link');
     if (previousePhotos) {
       previousePhotos.forEach(function (el) {
         el.remove();
@@ -43,7 +43,6 @@
 			});
     }
     galleryFilters.classList.remove('hidden');
-    console.log(pictures);
     console.log(data);
   }
 

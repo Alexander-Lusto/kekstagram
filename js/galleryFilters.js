@@ -13,27 +13,33 @@
   и вместо них показать те, которые подходят под новые условия.
 
   */
-  var galleryFilters = document.querySelector('.filters');
-  var filtersButtons = galleryFilters.querySelectorAll('input');
+  var galleryFiltersContainer = document.querySelector('.img-filters');
+  var filters = galleryFiltersContainer.querySelectorAll('button');
 
   var Filter = { // перечисление
-    NEW: 'new',
-    POPULAR: 'popular',
-    DISCUSSED: 'discussed',
-    RANDOM: 'random',
+    RECOMMENDED: 'filter-recommended',
+    POPULAR: 'filter-popular',
+    DISCUSSED: 'filter-discussed',
+    RANDOM: 'filter-random',
+  }
+
+  var showActiveFilter = function (clickedFilter, allFilters) {
+    allFilters.forEach(function (el) {
+      el.classList.remove('img-filters__button--active');
+    })
+    clickedFilter.classList.add('img-filters__button--active');
   }
 
   var filterPictures = function (evt) {
-
     var data = window.data.slice();
-    console.log(data);
-
-    switch (evt.target.value) {
-      case Filter.NEW:
-        window.renderPictures(window.utils.shuffleArray(data.slice(0, 10)))
+    switch (evt.target.id) {
+      case Filter.RECOMMENDED:
+        window.renderPictures(window.data);
         break;
       case Filter.POPULAR:
-        window.renderPictures(window.data);
+        window.renderPictures(data.sort(function (right, left) {
+          return left.likes - right.likes;
+        }));
         break;
       case Filter.DISCUSSED:
         window.renderPictures(data.sort(function (right, left) {
@@ -45,14 +51,13 @@
         break;
 
       default:
+        window.renderPictures(window.data);
         break;
     }
+    showActiveFilter(evt.target, filters);
   };
 
-  filtersButtons.forEach(function (el, i, arr) {
+  filters.forEach(function (el) {
     el.addEventListener('click', filterPictures);
   });
-
-
-
 })();
