@@ -6,8 +6,6 @@
   var SHOWED_COMMENTS_ON_CLICK = 5;
   var showedComments;
 
-
-
 	var removePreviousComments = function (commentsBlock) {
 		var socialComments = commentsBlock.querySelectorAll('.social__comment');
 		if (socialComments) {
@@ -92,13 +90,18 @@
 
     document.addEventListener('keydown', closeBigPictureOnEscPressHandler);
 
+    showMorePhotosButton.classList.remove('hidden');
     showedComments = picture.comments.slice(0, SHOWED_COMMENTS_ON_START);
 
     var showMoreCommentsClickHandler = function (evt) {
       if (picture.comments.length > showedComments.length) {
         showedComments = picture.comments.slice(0, showedComments.length + SHOWED_COMMENTS_ON_CLICK);
         renderComments(picture, showedComments);
-      } else {
+        if (picture.comments.length === showedComments.length) {
+          showMorePhotosButton.classList.add('hidden');
+        }
+      }
+      else {
         showedComments = picture.comments.slice(0, SHOWED_COMMENTS_ON_START);
         showMorePhotosButton.removeEventListener('click', showMoreCommentsClickHandler);
       }

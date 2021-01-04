@@ -31,6 +31,7 @@
 	}
 
 	var closeImageEditor = function () {
+    preview.style = "";
     uploadInput.value = "";
 		imageEditor.classList.add('hidden');
 		document.removeEventListener('keydown', onESCPress);
