@@ -1,6 +1,8 @@
 'use strict';
 (function () {
 	window.utils = {
+    IMAGE_PREVIEW_CLASS_NAME : 'img-upload__preview',
+
 		getRandomNumber : function (min, max) {
 			return Math.round(Math.random() * (max - min)) + min;
     },

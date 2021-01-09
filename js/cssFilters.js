@@ -1,7 +1,7 @@
 'use strict';
 (function () {
   var SCALE_LINE__WIDTH = 450;
-  var IMAGE_PREVIEW_CLASS_NAME = 'effect-image-preview';
+  var IMAGE_PREVIEW_CLASS_NAME = window.utils.IMAGE_PREVIEW_CLASS_NAME;
 
 	var imageEditor = document.querySelector('.img-upload__overlay');
 	var imagePreview = imageEditor.querySelector('.img-upload__preview');
@@ -18,8 +18,6 @@
     'phobos' : 'effects__preview--phobos',
     'heat' : 'effects__preview--heat',
   }
-
-
 
   var addClassNameToElement = function (element, value, defaultClass) {
     element.className = '';
