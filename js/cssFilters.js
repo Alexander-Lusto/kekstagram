@@ -74,36 +74,42 @@
 			switch(filter.value) {
 				case FilterName.ORIGINAL:
           imagePreview.style.filter = 'none';
+          scaleValue.value = "";
           window.utils.hideElement(scale);
           addClassNameToElement(imagePreview, filter.value, IMAGE_PREVIEW_CLASS_NAME);
 					break;
 
 				case FilterName.CHROME:
           window.utils.showElement(scale);
+          scaleValue.value = percent * 100;
           imagePreview.style.filter = 'grayscale(' + percent + ')';
           addClassNameToElement(imagePreview, filter.value, IMAGE_PREVIEW_CLASS_NAME);
 					break;
 
 				case FilterName.SEPIA:
 					window.utils.showElement(scale);
+          scaleValue.value = percent * 100;
           imagePreview.style.filter = 'sepia(' + percent + ')';
           addClassNameToElement(imagePreview, filter.value, IMAGE_PREVIEW_CLASS_NAME);
 					break;
 
 				case FilterName.MARVIN:
 					window.utils.showElement(scale);
+          scaleValue.value = percent * 100;
           imagePreview.style.filter = 'invert(' + (percent * 100) + '%)';
           addClassNameToElement(imagePreview, filter.value, IMAGE_PREVIEW_CLASS_NAME);
 					break;
 
 				case FilterName.PHOBOS:
 					window.utils.showElement(scale);
+          scaleValue.value = percent * 100;
           imagePreview.style.filter = 'blur(' + (percent * 3) + 'px)';
           addClassNameToElement(imagePreview, filter.value, IMAGE_PREVIEW_CLASS_NAME);
 					break;
 
 				case FilterName.HEAT:
 					window.utils.showElement(scale);
+          scaleValue.value = percent * 100;
           imagePreview.style.filter = 'brightness(' + (percent * 3) + ')';
           addClassNameToElement(imagePreview, filter.value, IMAGE_PREVIEW_CLASS_NAME);
 					break;

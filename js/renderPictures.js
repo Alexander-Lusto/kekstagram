@@ -43,7 +43,6 @@
 			});
     }
     galleryFilters.classList.remove('hidden');
-    console.log(data);
   }
 
   window.backend.load(onLoad, window.utils.onError);

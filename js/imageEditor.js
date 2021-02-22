@@ -10,7 +10,12 @@
   var uploadFormDescription = imageEditor.querySelector('.text__description');
   var resizeControlValue = imageEditor.querySelector('.resize__control--value');
   var scale = imageEditor.querySelector('.scale');
+  var scaleValue = scale.querySelector('.scale__value');
+
   var defaultFilter = imageEditor.querySelector('#effect-none');
+
+
+  console.log(scaleValue);
 
   var onLoad = function (response) {
     console.log(response)
@@ -27,6 +32,7 @@
 
   window.imageEditor = {
     show : function () {
+      scaleValue.value = "";
       resizeControlValue.value = "100%";
       defaultFilter.checked = true;
       uploadFormHashtags.value = "";
